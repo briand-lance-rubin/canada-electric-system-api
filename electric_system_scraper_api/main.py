@@ -9,7 +9,7 @@ if __name__ == "__main__":
     try:
         # Start the FastAPI application with Uvicorn, which serves the app at host '127.0.0.1' on port 8000
         # Disable Uvicorn's internal logger and let your custom logging handle all logging
-        uvicorn.run(app, host="127.0.0.1", port=8000, log_level="debug")
+        uvicorn.run(app, host="0.0.0.0", port=8000, log_level="debug")
         
         # Log the successful start of the application
         logger.info("Application started successfully.")
