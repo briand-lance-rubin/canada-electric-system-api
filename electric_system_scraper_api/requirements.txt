@@ -1,0 +1,16 @@
+fastapi==0.95.2
+uvicorn==0.22.0
+sqlalchemy==2.0.22
+aiohttp==3.8.5
+redis==5.0.0
+selenium==4.12.0
+requests==2.31.0
+beautifulsoup4==4.12.2
+tenacity==8.2.2
+pytest==7.4.0
+pytest-mock==3.11.1  # For mocking external calls
+pytest-cov==4.1.0
+httpx==0.24.1
+numpy==1.24.1
+pandas==1.5.3
+

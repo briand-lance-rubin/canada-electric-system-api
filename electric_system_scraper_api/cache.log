@@ -1,0 +1,110 @@
+2025-01-03 13:37:59,286 - INFO - Starting the application...
+2025-01-03 13:37:59,286 - INFO - Application setup initialized, about to start Uvicorn server.
+2025-01-03 13:37:59,299 - INFO - Started server process [57526]
+2025-01-03 13:37:59,299 - INFO - Waiting for application startup.
+2025-01-03 13:37:59,299 - INFO - Application startup complete.
+2025-01-03 13:37:59,300 - INFO - Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+2025-01-03 13:38:09,960 - INFO - Received request to scrape data.
+2025-01-03 13:38:09,960 - INFO - Initializing Redis cache.
+2025-01-03 13:38:09,960 - INFO - Redis cache initialized successfully.
+2025-01-03 13:38:09,965 - ERROR - Error retrieving cache for key scraped_data: Error 61 connecting to localhost:6379. Connection refused.
+2025-01-03 13:38:09,965 - INFO - Fetching new data.
+2025-01-03 13:38:09,966 - INFO - Fetching data from URL: http://ets.aeso.ca/ets_web/ip/Market/Reports/ActualForecastWMRQHReportServlet
+2025-01-03 13:38:11,220 - INFO - Data fetched successfully.
+2025-01-03 13:38:11,232 - INFO - Parsing HTML content...
+2025-01-03 13:38:11,238 - INFO - Parsed table successfully. Rows extracted: 30
+2025-01-03 13:38:11,238 - INFO - Prepared raw_data: [{'Date (HE)': '01/03/2025 01', 'Forecast Pool Price': '34.59', 'Actual Posted Pool Price': '44.13', 'Forecast AIL': '10,900', 'Actual AIL': '10,970', 'Forecast AIL & Actual AIL Difference': '-70'}, {'Date (HE)': '01/03/2025 02', 'Forecast Pool Price': '41.62', 'Actual Posted Pool Price': '35.35', 'Forecast AIL': '10,921', 'Actual AIL': '10,944', 'Forecast AIL & Actual AIL Difference': '-23'}, {'Date (HE)': '01/03/2025 03', 'Forecast Pool Price': '46.86', 'Actual Posted Pool Price': '49.30', 'Forecast AIL': '10,880', 'Actual AIL': '10,887', 'Forecast AIL & Actual AIL Difference': '-7'}, {'Date (HE)': '01/03/2025 04', 'Forecast Pool Price': '50.91', 'Actual Posted Pool Price': '43.89', 'Forecast AIL': '10,857', 'Actual AIL': '10,842', 'Forecast AIL & Actual AIL Difference': '15'}, {'Date (HE)': '01/03/2025 05', 'Forecast Pool Price': '36.56', 'Actual Posted Pool Price': '35.35', 'Forecast AIL': '10,863', 'Actual AIL': '10,886', 'Forecast AIL & Actual AIL Difference': '-23'}]...
+2025-01-03 13:38:11,238 - INFO - Passing batch_size=500 to transform_data
+2025-01-03 13:38:11,248 - INFO - Raw data before cleanup:        Date (HE) Forecast Pool Price Actual Posted Pool Price Forecast AIL Actual AIL Forecast AIL & Actual AIL Difference
+0  01/03/2025 01               34.59                    44.13       10,900     10,970                                  -70
+1  01/03/2025 02               41.62                    35.35       10,921     10,944                                  -23
+2  01/03/2025 03               46.86                    49.30       10,880     10,887                                   -7
+3  01/03/2025 04               50.91                    43.89       10,857     10,842                                   15
+4  01/03/2025 05               36.56                    35.35       10,863     10,886                                  -23
+2025-01-03 13:38:11,252 - WARNING - Rows with invalid dates: 1
+2025-01-03 13:38:11,259 - INFO - Rows after numeric conversion: Forecast Pool Price                     15
+Actual Posted Pool Price                18
+Forecast AIL                             0
+Actual AIL                              18
+Forecast AIL & Actual AIL Difference    18
+dtype: int64 NaN values found
+2025-01-03 13:38:11,262 - INFO - Total rows to process after cleaning: 11
+2025-01-03 13:38:11,262 - INFO - Data split into 1 batches.
+2025-01-03 13:38:11,263 - INFO - Processed data: [{'Date (HE)': Timestamp('2025-01-03 01:00:00'), 'Forecast Pool Price': 34.59, 'Actual Posted Pool Price': 44.13, 'Forecast AIL': 10900, 'Actual AIL': 10970.0, 'Forecast AIL & Actual AIL Difference': -70.0}, {'Date (HE)': Timestamp('2025-01-03 02:00:00'), 'Forecast Pool Price': 41.62, 'Actual Posted Pool Price': 35.35, 'Forecast AIL': 10921, 'Actual AIL': 10944.0, 'Forecast AIL & Actual AIL Difference': -23.0}, {'Date (HE)': Timestamp('2025-01-03 03:00:00'), 'Forecast Pool Price': 46.86, 'Actual Posted Pool Price': 49.3, 'Forecast AIL': 10880, 'Actual AIL': 10887.0, 'Forecast AIL & Actual AIL Difference': -7.0}, {'Date (HE)': Timestamp('2025-01-03 04:00:00'), 'Forecast Pool Price': 50.91, 'Actual Posted Pool Price': 43.89, 'Forecast AIL': 10857, 'Actual AIL': 10842.0, 'Forecast AIL & Actual AIL Difference': 15.0}, {'Date (HE)': Timestamp('2025-01-03 05:00:00'), 'Forecast Pool Price': 36.56, 'Actual Posted Pool Price': 35.35, 'Forecast AIL': 10863, 'Actual AIL': 10886.0, 'Forecast AIL & Actual AIL Difference': -23.0}]...
+2025-01-03 13:38:11,282 - INFO - Database connection established successfully.
+2025-01-03 13:38:11,283 - ERROR - Error during bulk insert: (sqlite3.OperationalError) unable to open database file
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-01-03 13:38:11,283 - ERROR - Error during scrape process: (sqlite3.OperationalError) unable to open database file
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-01-03 13:38:11,283 - INFO - 127.0.0.1:53714 - "GET /scrape HTTP/1.1" 200
+2025-01-03 13:38:22,430 - INFO - Root endpoint accessed.
+2025-01-03 13:38:22,430 - INFO - 127.0.0.1:53715 - "GET / HTTP/1.1" 200
+2025-01-03 13:38:29,596 - INFO - Received request to scrape data.
+2025-01-03 13:38:29,596 - INFO - Initializing Redis cache.
+2025-01-03 13:38:29,597 - INFO - Redis cache initialized successfully.
+2025-01-03 13:38:29,598 - ERROR - Error retrieving cache for key scraped_data: Error 61 connecting to localhost:6379. Connection refused.
+2025-01-03 13:38:29,598 - INFO - Fetching new data.
+2025-01-03 13:38:29,598 - INFO - Fetching data from URL: http://ets.aeso.ca/ets_web/ip/Market/Reports/ActualForecastWMRQHReportServlet
+2025-01-03 13:38:29,880 - INFO - Data fetched successfully.
+2025-01-03 13:38:29,882 - INFO - Parsing HTML content...
+2025-01-03 13:38:29,890 - INFO - Parsed table successfully. Rows extracted: 30
+2025-01-03 13:38:29,891 - INFO - Prepared raw_data: [{'Date (HE)': '01/03/2025 01', 'Forecast Pool Price': '34.59', 'Actual Posted Pool Price': '44.13', 'Forecast AIL': '10,900', 'Actual AIL': '10,970', 'Forecast AIL & Actual AIL Difference': '-70'}, {'Date (HE)': '01/03/2025 02', 'Forecast Pool Price': '41.62', 'Actual Posted Pool Price': '35.35', 'Forecast AIL': '10,921', 'Actual AIL': '10,944', 'Forecast AIL & Actual AIL Difference': '-23'}, {'Date (HE)': '01/03/2025 03', 'Forecast Pool Price': '46.86', 'Actual Posted Pool Price': '49.30', 'Forecast AIL': '10,880', 'Actual AIL': '10,887', 'Forecast AIL & Actual AIL Difference': '-7'}, {'Date (HE)': '01/03/2025 04', 'Forecast Pool Price': '50.91', 'Actual Posted Pool Price': '43.89', 'Forecast AIL': '10,857', 'Actual AIL': '10,842', 'Forecast AIL & Actual AIL Difference': '15'}, {'Date (HE)': '01/03/2025 05', 'Forecast Pool Price': '36.56', 'Actual Posted Pool Price': '35.35', 'Forecast AIL': '10,863', 'Actual AIL': '10,886', 'Forecast AIL & Actual AIL Difference': '-23'}]...
+2025-01-03 13:38:29,891 - INFO - Passing batch_size=500 to transform_data
+2025-01-03 13:38:29,895 - INFO - Raw data before cleanup:        Date (HE) Forecast Pool Price Actual Posted Pool Price Forecast AIL Actual AIL Forecast AIL & Actual AIL Difference
+0  01/03/2025 01               34.59                    44.13       10,900     10,970                                  -70
+1  01/03/2025 02               41.62                    35.35       10,921     10,944                                  -23
+2  01/03/2025 03               46.86                    49.30       10,880     10,887                                   -7
+3  01/03/2025 04               50.91                    43.89       10,857     10,842                                   15
+4  01/03/2025 05               36.56                    35.35       10,863     10,886                                  -23
+2025-01-03 13:38:29,896 - WARNING - Rows with invalid dates: 1
+2025-01-03 13:38:29,901 - INFO - Rows after numeric conversion: Forecast Pool Price                     15
+Actual Posted Pool Price                18
+Forecast AIL                             0
+Actual AIL                              18
+Forecast AIL & Actual AIL Difference    18
+dtype: int64 NaN values found
+2025-01-03 13:38:29,906 - INFO - Total rows to process after cleaning: 11
+2025-01-03 13:38:29,906 - INFO - Data split into 1 batches.
+2025-01-03 13:38:29,906 - INFO - Processed data: [{'Date (HE)': Timestamp('2025-01-03 01:00:00'), 'Forecast Pool Price': 34.59, 'Actual Posted Pool Price': 44.13, 'Forecast AIL': 10900, 'Actual AIL': 10970.0, 'Forecast AIL & Actual AIL Difference': -70.0}, {'Date (HE)': Timestamp('2025-01-03 02:00:00'), 'Forecast Pool Price': 41.62, 'Actual Posted Pool Price': 35.35, 'Forecast AIL': 10921, 'Actual AIL': 10944.0, 'Forecast AIL & Actual AIL Difference': -23.0}, {'Date (HE)': Timestamp('2025-01-03 03:00:00'), 'Forecast Pool Price': 46.86, 'Actual Posted Pool Price': 49.3, 'Forecast AIL': 10880, 'Actual AIL': 10887.0, 'Forecast AIL & Actual AIL Difference': -7.0}, {'Date (HE)': Timestamp('2025-01-03 04:00:00'), 'Forecast Pool Price': 50.91, 'Actual Posted Pool Price': 43.89, 'Forecast AIL': 10857, 'Actual AIL': 10842.0, 'Forecast AIL & Actual AIL Difference': 15.0}, {'Date (HE)': Timestamp('2025-01-03 05:00:00'), 'Forecast Pool Price': 36.56, 'Actual Posted Pool Price': 35.35, 'Forecast AIL': 10863, 'Actual AIL': 10886.0, 'Forecast AIL & Actual AIL Difference': -23.0}]...
+2025-01-03 13:38:29,906 - INFO - Database connection established successfully.
+2025-01-03 13:38:29,907 - ERROR - Error during bulk insert: (sqlite3.OperationalError) unable to open database file
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-01-03 13:38:29,907 - ERROR - Error during scrape process: (sqlite3.OperationalError) unable to open database file
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-01-03 13:38:29,907 - INFO - 127.0.0.1:53719 - "GET /scrape HTTP/1.1" 200
+2025-01-03 13:44:42,589 - INFO - Shutting down
+2025-01-03 13:44:42,692 - INFO - Waiting for application shutdown.
+2025-01-03 13:44:42,693 - INFO - Application shutdown complete.
+2025-01-03 13:44:42,694 - INFO - Finished server process [57526]
+2025-01-03 13:44:42,695 - INFO - Application started successfully.
+2025-01-03 13:44:45,512 - INFO - Starting the application...
+2025-01-03 13:44:58,527 - INFO - Root endpoint accessed.
+2025-01-03 13:45:01,498 - INFO - Received request to scrape data.
+2025-01-03 13:45:01,499 - INFO - Initializing Redis cache.
+2025-01-03 13:45:01,499 - INFO - Redis cache initialized successfully.
+2025-01-03 13:45:01,505 - ERROR - Error retrieving cache for key scraped_data: Error 61 connecting to localhost:6379. Connection refused.
+2025-01-03 13:45:01,505 - INFO - Fetching new data.
+2025-01-03 13:45:01,505 - INFO - Fetching data from URL: http://ets.aeso.ca/ets_web/ip/Market/Reports/ActualForecastWMRQHReportServlet
+2025-01-03 13:45:01,928 - INFO - Data fetched successfully.
+2025-01-03 13:45:01,937 - INFO - Parsing HTML content...
+2025-01-03 13:45:01,943 - INFO - Parsed table successfully. Rows extracted: 30
+2025-01-03 13:45:01,943 - INFO - Prepared raw_data: [{'Date (HE)': '01/03/2025 01', 'Forecast Pool Price': '34.59', 'Actual Posted Pool Price': '44.13', 'Forecast AIL': '10,900', 'Actual AIL': '10,970', 'Forecast AIL & Actual AIL Difference': '-70'}, {'Date (HE)': '01/03/2025 02', 'Forecast Pool Price': '41.62', 'Actual Posted Pool Price': '35.35', 'Forecast AIL': '10,921', 'Actual AIL': '10,944', 'Forecast AIL & Actual AIL Difference': '-23'}, {'Date (HE)': '01/03/2025 03', 'Forecast Pool Price': '46.86', 'Actual Posted Pool Price': '49.30', 'Forecast AIL': '10,880', 'Actual AIL': '10,887', 'Forecast AIL & Actual AIL Difference': '-7'}, {'Date (HE)': '01/03/2025 04', 'Forecast Pool Price': '50.91', 'Actual Posted Pool Price': '43.89', 'Forecast AIL': '10,857', 'Actual AIL': '10,842', 'Forecast AIL & Actual AIL Difference': '15'}, {'Date (HE)': '01/03/2025 05', 'Forecast Pool Price': '36.56', 'Actual Posted Pool Price': '35.35', 'Forecast AIL': '10,863', 'Actual AIL': '10,886', 'Forecast AIL & Actual AIL Difference': '-23'}]...
+2025-01-03 13:45:01,943 - INFO - Passing batch_size=500 to transform_data
+2025-01-03 13:45:01,950 - INFO - Raw data before cleanup:        Date (HE) Forecast Pool Price Actual Posted Pool Price Forecast AIL Actual AIL Forecast AIL & Actual AIL Difference
+0  01/03/2025 01               34.59                    44.13       10,900     10,970                                  -70
+1  01/03/2025 02               41.62                    35.35       10,921     10,944                                  -23
+2  01/03/2025 03               46.86                    49.30       10,880     10,887                                   -7
+3  01/03/2025 04               50.91                    43.89       10,857     10,842                                   15
+4  01/03/2025 05               36.56                    35.35       10,863     10,886                                  -23
+2025-01-03 13:45:01,952 - WARNING - Rows with invalid dates: 1
+2025-01-03 13:45:01,958 - INFO - Rows after numeric conversion: Forecast Pool Price                     15
+Actual Posted Pool Price                18
+Forecast AIL                             0
+Actual AIL                              18
+Forecast AIL & Actual AIL Difference    18
+dtype: int64 NaN values found
+2025-01-03 13:45:01,962 - INFO - Total rows to process after cleaning: 11
+2025-01-03 13:45:01,962 - INFO - Data split into 1 batches.
+2025-01-03 13:45:01,963 - INFO - Processed data: [{'Date (HE)': Timestamp('2025-01-03 01:00:00'), 'Forecast Pool Price': 34.59, 'Actual Posted Pool Price': 44.13, 'Forecast AIL': 10900, 'Actual AIL': 10970.0, 'Forecast AIL & Actual AIL Difference': -70.0}, {'Date (HE)': Timestamp('2025-01-03 02:00:00'), 'Forecast Pool Price': 41.62, 'Actual Posted Pool Price': 35.35, 'Forecast AIL': 10921, 'Actual AIL': 10944.0, 'Forecast AIL & Actual AIL Difference': -23.0}, {'Date (HE)': Timestamp('2025-01-03 03:00:00'), 'Forecast Pool Price': 46.86, 'Actual Posted Pool Price': 49.3, 'Forecast AIL': 10880, 'Actual AIL': 10887.0, 'Forecast AIL & Actual AIL Difference': -7.0}, {'Date (HE)': Timestamp('2025-01-03 04:00:00'), 'Forecast Pool Price': 50.91, 'Actual Posted Pool Price': 43.89, 'Forecast AIL': 10857, 'Actual AIL': 10842.0, 'Forecast AIL & Actual AIL Difference': 15.0}, {'Date (HE)': Timestamp('2025-01-03 05:00:00'), 'Forecast Pool Price': 36.56, 'Actual Posted Pool Price': 35.35, 'Forecast AIL': 10863, 'Actual AIL': 10886.0, 'Forecast AIL & Actual AIL Difference': -23.0}]...
+2025-01-03 13:45:01,970 - ERROR - Error during scrape process: name 'logger' is not defined
+2025-01-03 13:54:34,092 - INFO - Application started successfully.
